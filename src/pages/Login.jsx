@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import login from "../assets/login.png";
 import { IoMdContact } from "react-icons/io";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
-  const handleLogin=()=>{
-
-  }
+  const [details, setDetails] = useState({ username: "", password: "" });
+  const[loading, setLoading] = useState(false)
+  const navigate = useNavigate();
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (details.username && details.password) {
+      setLoading(true)
+      navigate("/");
+    } else {
+      alert("Enter Login details or create an account if you don't have one");
+    }
+    console.log(details);
+  };
   return (
     <div className="grid place-items-center py-12 md:p-0">
       <img className="w-64 h-64 object-contain" src={login} alt="" />
@@ -20,6 +30,10 @@ const Login = () => {
             className="border-2 border-gray-500 rounded-xl py-1 px-2 w-56"
             type="text"
             placeholder="Username"
+            value={details.username}
+            onChange={(e) => {
+              setDetails({ ...details, username: e.target.value });
+            }}
           />
         </div>
 
@@ -31,6 +45,10 @@ const Login = () => {
             className="border-2 border-gray-500 rounded-xl py-1 px-2 w-56"
             type="password"
             placeholder="Password"
+            value={details.password}
+            onChange={(e) => {
+              setDetails({ ...details, password: e.target.value });
+            }}
           />
         </div>
         <div className="flex flex-col items-center mt-8">
@@ -40,13 +58,17 @@ const Login = () => {
             value="Login"
           />
         </div>
-        <a className="text-xs text-blue-700 flex justify-end pt-3 hover:underline" href="">
+        <a
+          className="text-xs text-blue-700 flex justify-end pt-3 hover:underline"
+          href=""
+        >
           Forgot Password?
         </a>
-        <Link to="/register">
-          <a className="text-xs text-blue-700 flex justify-end pt-3 hover:underline">
-            Don't have an account?
-          </a>
+        <Link
+          to="/register"
+          className="text-xs text-blue-700 flex justify-end pt-3 hover:underline"
+        >
+          Don't have an account?
         </Link>
       </form>
     </div>

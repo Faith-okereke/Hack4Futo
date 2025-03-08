@@ -47,10 +47,8 @@ const Register = () => {
             value="Sign up"
           />
         </div>
-        <Link to="/login">
-          <a className="text-xs text-blue-700 flex justify-end pt-3 hover:underline">
+        <Link to="/login"  className="text-xs text-blue-700 flex justify-end pt-3 hover:underline">
             Already have an account?
-          </a>
         </Link>
       </form>
     </div>
