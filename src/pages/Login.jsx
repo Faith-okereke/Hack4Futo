@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import login from "../assets/login.png";
 import { IoMdContact } from "react-icons/io";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../UserContext";
+
+
 const Login = () => {
+
   const [details, setDetails] = useState({ username: "", password: "" });
-  const[loading, setLoading] = useState(false)
+  const { user, setUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const handleLogin = (e) => {
     e.preventDefault();
     if (details.username && details.password) {
-      setLoading(true)
+      setLoading(true);
+      setUser(true)
+      console.log(user)
       navigate("/");
     } else {
       alert("Enter Login details or create an account if you don't have one");
