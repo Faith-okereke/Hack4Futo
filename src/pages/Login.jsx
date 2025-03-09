@@ -15,16 +15,16 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (details.username && details.password) {
-      setLoading(true);
-      setUser(true)
-      console.log(user)
-      navigate("/");
-    } else {
-      alert("Enter Login details or create an account if you don't have one");
+    if (!details.username || !details.password) {
+      alert("Please fill in both username and password or Login if you have an account!");
+      return;
     }
-    console.log(details);
+    setLoading(true);
+    setUser(true);
+    console.log(user);
+    navigate("/");
   };
+    
   return (
     <div className="grid place-items-center py-12 md:p-0">
       <img className="w-64 h-64 object-contain" src={login} alt="" />
@@ -45,20 +45,27 @@ const Login = () => {
           />
         </div>
 
-        <div className="flex gap-2 items-center justify-normal mt-6">
-          <i>
-            <RiLockPasswordFill fontSize={30} fill="#ff63fc" />
-          </i>
-          <input
-            className="border-2 border-gray-500 rounded-xl py-1 px-2 w-56"
-            type="password"
-            placeholder="Password"
-            value={details.password}
-            onChange={(e) => {
-              setDetails({ ...details, password: e.target.value });
-            }}
-          />
+      
+    
+
+
+
+  <div className="flex gap-2 items-center justify-normal mt-6">
+    <i>
+    <RiLockPasswordFill fontSize={30} fill="#ff63fc" />
+    </i>
+      <input
+        className="border-2 border-gray-500 rounded-xl py-1 px-2 w-56"
+        type="password"
+        placeholder="Password"
+        value={details.password}
+        onChange={(e) => {
+        setDetails({ ...details, password: e.target.value });
+      }}
+      />
         </div>
+      
+        
         <div className="flex flex-col items-center mt-8">
           <input
             className=" rounded-xl cursor-pointer bg-[#ff63fc] text-white px-4 py-2 text-center w-full"
