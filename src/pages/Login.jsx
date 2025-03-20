@@ -45,11 +45,6 @@ const Login = () => {
           />
         </div>
 
-      
-    
-
-
-
   <div className="flex gap-2 items-center justify-normal mt-6">
     <i>
     <RiLockPasswordFill fontSize={30} fill="#ff63fc" />
@@ -83,7 +78,7 @@ const Login = () => {
           to="/register"
           className="text-xs text-blue-700 flex justify-end pt-3 hover:underline"
         >
-          Don't have an account?
+          You do not have an account?
         </Link>
       </form>
     </div>
