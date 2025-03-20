@@ -4,10 +4,9 @@ import { IoMdContact } from "react-icons/io";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext";
-
+import { LuLoaderCircle } from "react-icons/lu";
 
 const Login = () => {
-
   const [details, setDetails] = useState({ username: "", password: "" });
   const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
@@ -17,8 +16,8 @@ const Login = () => {
     e.preventDefault();
     if (details.username && details.password) {
       setLoading(true);
-      setUser(true)
-      console.log(user)
+      setUser(true);
+      console.log(user);
       navigate("/");
     } else {
       alert("Enter Login details or create an account if you don't have one");
@@ -60,6 +59,11 @@ const Login = () => {
           />
         </div>
         <div className="flex flex-col items-center mt-8">
+          {loading && (
+            <i>
+              <LuLoaderCircle />
+            </i>
+          )}
           <input
             className=" rounded-xl cursor-pointer bg-[#ff63fc] text-white px-4 py-2 text-center w-full"
             type="submit"

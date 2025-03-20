@@ -1,20 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import login from "../assets/login.png";
 import { IoMdContact, IoMdMail } from "react-icons/io";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../UserContext";
 const Register = () => {
+  const { user, setUser } = useContext(UserContext);
   const [details, setDetails] = useState({
     username: "",
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const handleRegister = (e) => {
+    e.preventDefault();
+    if (details.username && details.email && details.password) {
+      setLoading(true);
+      setUser(true);
+      console.log(user);
+      navigate("/");
+    } else {
+      alert("Please fill in all the required Information.");
+    }
+    console.log(details);
+  };
   return (
     <div className="grid place-items-center  py-12 md:p-0">
       <img className="w-64 h-64 object-contain" src={login} alt="" />
       <h1 className="text-2xl font-bold ">Create a new account</h1>
-      <form onSubmit={() => navigate("/login")}>
+      <form onSubmit={handleRegister}>
         <div className="flex gap-2 items-center justify-normal mt-6">
           <i>
             <IoMdContact fontSize={30} fill="#ff63fc" />
