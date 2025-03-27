@@ -11,25 +11,61 @@ const Register = () => {
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const handleRegister = (e) => {
-    e.preventDefault();
-    if (details.username && details.email && details.password) {
-      setLoading(true);
-      setUser(true);
-      console.log(user);
-      navigate("/");
+
+  const [passwordStrength, setPasswordStrength] = useState(false);
+  const [warningMessage, setWarningMessage] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [emailValid, setEmailValid] = useState(false);
+
+  const handleEmailChange = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (emailRegex.test(email)) {
+      setEmailValid(true);
     } else {
-      alert("Please fill in all the required Information.");
+      setEmailValid(false);
     }
-    console.log(details);
+    setDetails({ ...details, email: email.target.value });
   };
+
+  const navigate = useNavigate();
+
+  const handlePasswordChange = (e) => {
+    const password = e.target.value;
+    const passwordLength = password.length;
+
+    if (passwordLength < 8) {
+      setPasswordStrength(false);
+      setWarningMessage("Password must be at least 8 characters long.");
+    } else {
+      setPasswordStrength(true);
+      setWarningMessage("");
+    }
+
+    setDetails({ ...details, password: password });
+  };
+
+  const handleTermsAcceptance = (e) => {
+    setTermsAccepted(e.target.checked);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!details.username || !details.email || !details.password) {
+      alert("Please fill in all the required Information.");
+      return;
+    }
+    if (!passwordStrength) {
+      alert("Password must be at least 8 characters long.");
+      return;
+    }
+    navigate("/login");
+  };
+
   return (
-    <div className="grid place-items-center  py-12 md:p-0">
+    <div className="grid place-items-center py-12 md:p-0">
       <img className="w-64 h-64 object-contain" src={login} alt="" />
       <h1 className="text-2xl font-bold ">Create a new account</h1>
-      <form onSubmit={handleRegister}>
+      <form onSubmit={handleSubmit}>
         <div className="flex gap-2 items-center justify-normal mt-6">
           <i>
             <IoMdContact fontSize={30} fill="#ff63fc" />
@@ -53,10 +89,9 @@ const Register = () => {
             type="text"
             placeholder="Email address"
             value={details.email}
-            onChange={(e) => setDetails({ ...details, email: e.target.value })}
+            onChange={handleEmailChange}
           />
         </div>
-
         <div className="flex gap-2 items-center justify-normal mt-6">
           <i>
             <RiLockPasswordFill fontSize={30} fill="#ff63fc" />
@@ -66,10 +101,10 @@ const Register = () => {
             type="password"
             placeholder="Password"
             value={details.password}
-            onChange={(e) =>
-              setDetails({ ...details, password: e.target.value })
-            }
+            onChange={handlePasswordChange}
           />
+          <br />
+          {warningMessage && <p className="text-red-500">{warningMessage}</p>}
         </div>
         <div className="flex flex-col items-center mt-8">
           <input
@@ -88,5 +123,4 @@ const Register = () => {
     </div>
   );
 };
-
 export default Register;

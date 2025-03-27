@@ -3,7 +3,7 @@ import { RxAvatar } from "react-icons/rx";
 import { Link } from "react-router-dom";
 const NavBar = () => {
   return (
-    <div className="flex justify-end gap-[400px] items-center bg-pink-500">
+    <div className="flex justify-end gap-[400px] items-center bg-green-700">
       <ul className="flex justify-center gap-8 py-5  text-white ">
         <li className="flex items-center justify-center hover:text-[#ff63fc] transition-colors ">
           <Link to="/">Home</Link>

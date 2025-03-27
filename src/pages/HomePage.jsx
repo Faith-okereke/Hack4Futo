@@ -1,7 +1,26 @@
-import React from "react";
+import React,{useState} from "react";
 import NavBar from "../components/NavBar";
 import student from "../assets/StudentLearning.jpg";
 const HomePage = () => {
+  const [image, setImage] = useState("");
+
+  const uploadImage = (files) => {
+    const formData = new FormData();
+
+    formData.append("file", files[0]);
+    formData.append("upload_preset", "<your upload preset>");
+    fetch(
+      "https://api.cloudinary.com/v1_1/dtdp2u2oy/image/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setImage(data.secure_url);
+      });
+  };
   return (
     <div className="poppins-regular">
       <NavBar />
